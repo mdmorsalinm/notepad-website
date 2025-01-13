@@ -327,6 +327,28 @@ classes to make the sign out buttons work
     display: none;
 }
 
+#notes-container {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    margin-top: 0px;
+}
+
+.post-box {
+    height: 300px;
+    padding: 20px;
+    width: 200px;
+    background-color: #cbd6d1;
+    color:rgba(0, 0, 0, .25);
+    margin-right: 10px;
+}
+
+.post-text {
+    font-size: 14px;
+    color: black;
+}
+
 
 /*  credit:coursera */
 

@@ -6,8 +6,9 @@ import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebase
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js"
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+import { collection, addDoc, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
 
 
 // Initialize Cloud Firestore and get a reference to the service
@@ -39,7 +40,6 @@ const db = getFirestore(app);
 console.log(db)
 
 
-
 // app features new notes
 
 const newNoteButton = document.getElementById("newNote");
@@ -56,15 +56,29 @@ newNoteButton.addEventListener("click", () => {
 });
 
 const saveBtn = document.getElementById("post-btn");
+const postInput = document.getElementById("post-input");
+const notesContainer = document.getElementById("notes-container")
 
 saveBtn.addEventListener("click", () => {
     postSection.style.display = "none";
-    
 });
 
-function createPostBoxes() {
-    let div = document.createElement("div");
 
+const querySnapshot = await getDocs(collection(db, "posts"));
+querySnapshot.forEach((doc) => {
+  createPostBoxes(`${doc.data().body}`);
+});
+
+
+
+function createPostBoxes(text) {
+    let newDiv = document.createElement("div");
+    let newP = document.createElement("p");
+    newDiv.setAttribute("class", "post-box");
+    newP.setAttribute("class", "post-text");
+    newDiv.appendChild(newP);
+    notesContainer.appendChild(newDiv);
+    newP.innerHTML = text;
 }
 
 /* === UI === */
