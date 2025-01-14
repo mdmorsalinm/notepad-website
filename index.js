@@ -110,6 +110,11 @@ const passwordInputEl = document.getElementById("password-input")
 const signInButtonEl = document.getElementById("sign-in-btn")
 const createAccountButtonEl = document.getElementById("create-account-btn")
 
+const blueButton = document.getElementById("blueBtn"); ////////////
+const redButton = document.getElementById("redBtn"); ////////////
+const greenButton = document.getElementById("greenBtn"); ////////////
+const greyButton = document.getElementById("greyBtn"); ////////////
+
 
 /* == UI - Event Listeners == */
 signOutButtonEl.addEventListener("click", authSignOut)
@@ -123,6 +128,10 @@ signInWithGoogleButtonEl.addEventListener("click", authSignInWithGoogle)
 signInButtonEl.addEventListener("click", authSignInWithEmail)
 createAccountButtonEl.addEventListener("click", authCreateAccountWithEmail)
 
+blueButton.addEventListener("click", blueBtnFunc) ////////
+redButton.addEventListener("click", redBtnFunc) ////////
+greenButton.addEventListener("click", greenBtnFunc) ////////
+greyButton.addEventListener("click", greyBtnFunc) ////////
 
 /* === Main Code === */
 // showLoggedOutView()
@@ -314,5 +323,26 @@ async function addPostToDB(postBody, user) {
     }
 }
 
+
+function blueBtnFunc(){
+    document.body.style.backgroundColor = 'rgb(93, 149, 252)';
+document.body.style.backgroundImage = 'none'; 
+    console.log("HIII")
+}
+function redBtnFunc(){
+    document.body.style.backgroundColor = 'rgb(255, 106, 61)';
+document.body.style.backgroundImage = 'none'; 
+    console.log("HIII")
+}
+function greenBtnFunc(){
+    document.body.style.backgroundColor = 'rgb(107, 226, 113)';
+document.body.style.backgroundImage = 'none'; 
+    console.log("HIII")
+}
+function greyBtnFunc(){
+    document.body.style.backgroundColor = 'rgb(78, 78, 78)';
+document.body.style.backgroundImage = 'none'; 
+    console.log("HIII")
+}
  
 //credit: coursera
