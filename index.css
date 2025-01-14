@@ -349,6 +349,36 @@ classes to make the sign out buttons work
     color: black;
 }
 
+p{
+    font-weight: bold;
+    margin-top: -10px;
+    margin-left: 20px;
+    color:white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
+.color-button{
+
+    width:25px;
+    height: 25px;
+}
+
+#redBtn{
+    margin-left: 10px;
+    background-color: rgb(255, 118, 76);
+}
+#greenBtn{
+    margin-left: 10px;
+    background-color: rgb(75, 253, 105);
+}
+
+#blueBtn{
+    margin-left: 10px;
+    background-color: rgb(93, 149, 252);
+}
+#greyBtn{
+    margin-left: 10px;
+    background-color: rgb(133, 133, 133);
+}
 /*  credit:coursera */
 
