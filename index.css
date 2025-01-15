@@ -361,10 +361,22 @@ p{
 
     width:25px;
     height: 25px;
+    align-items: center;
 }
-
+#redBtn:hover{ 
+    background-color: #c52a1f; /* Darker shade for hover */
+}
+#blueBtn:hover{ 
+    background-color: #144d81; /* Darker shade for hover */
+}
+#greenBtn:hover{ 
+    background-color: #207c18; /* Darker shade for hover */
+}
+#greyBtn:hover{ 
+    background-color: #535353; /* Darker shade for hover */
+}
 #redBtn{
-    margin-left: 10px;
+    margin-left: -10px;
     background-color: rgb(255, 118, 76);
 }
 #greenBtn{
@@ -377,8 +389,29 @@ p{
     background-color: rgb(93, 149, 252);
 }
 #greyBtn{
+
     margin-left: 10px;
     background-color: rgb(133, 133, 133);
 }
 /*  credit:coursera */
 
+.buttonDiv{
+    width:100%;
+    position: relative;
+    background-color: red;
+    margin-top: 100px;
+    float: bottom;
+    margin-bottom: 0px;
+} 
+footer{
+    background-color: cyan;
+}
+#postID{
+    position: relative;
+}
+#ranWordBtn{
+    margin-top:500px;
+    align-items: bottom;
+    width:200px;
+    height:40px;
+}
