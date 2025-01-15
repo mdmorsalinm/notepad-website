@@ -14,6 +14,10 @@
         <div class="header">
             <h1 class="title">NeedNotes™</h1>
             <div class="navigation">
+            <button class="color-button" id="redBtn"></button>
+            <button class="color-button" id="greenBtn"></button>
+            <button class="color-button" id="blueBtn"></button>
+            <button class="color-button" id="greyBtn"></button>
                 <button id="newNote" class="nav-btn">New Note +</button>
                 <div class="user-profile">
                     <img id="user-profile-picture" src="assets/icons/default-profile.png" alt="User Profile Picture">
@@ -48,19 +52,23 @@
             <div id="notes-container">
 
             </div>
-            <div class="container">
+            <div class="container" id="postID">
                 <div id="post-section">
                     <textarea id="post-input" placeholder="Write some notes..."></textarea>
                     <button id="post-btn" class="primary-btn">Save</button>
                 </div>
             </div>
         </section>
+        <button id="ranWordBtn">Word Of The Day</button>
+        <h2 id="randomWord"></h2>
+        <!-- <div class="buttonDiv">
         <br><br><br><br><br><br><br>
             <p>Change Theme</p>
             <button class="color-button" id="redBtn"></button>
             <button class="color-button" id="greenBtn"></button>
             <button class="color-button" id="blueBtn"></button>
             <button class="color-button" id="greyBtn"></button>
+        </div> -->
         <script src="index.js" type="module"></script>
     </body>
 </html>
