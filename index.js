@@ -345,4 +345,13 @@ document.body.style.backgroundImage = 'none';
     console.log("HIII")
 }
  
+
+function generateWord() { fetch('https://random-word-api.herokuapp.com/word') 
+    .then(response => response.json()) 
+    .then(data => { document.getElementById("randomWord").innerText = data[0]; })
+     .catch(error => { console.error('Error fetching the word:', error); });
+}
 //credit: coursera
+//get userID of person logged in
+//check if every note 
+//display flex; flex wrap
