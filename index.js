@@ -5,24 +5,6 @@ import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword, creat
 import { getFirestore, collection, addDoc, serverTimestamp, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
 
 
-
-
-
-
-// Initialize Cloud Firestore and get a reference to the service
-
-
-
-
-
-
-
-
-
-let saveClicked = 1;
-/* === Firebase Setup === */
-
-
 const firebaseConfig = {
     apiKey: "AIzaSyAyhDHTCHo_vl3QHfLASXFL9tA_8qemJhg",
     authDomain: "neednotes-635a1.firebaseapp.com",
@@ -42,16 +24,6 @@ console.log(auth)
 console.log(app._options.projectId)
 const db = getFirestore(app);
 
-
-// test if it works
-console.log(db)
-
-
-
-
-// app features new notes
-
-
 const newNoteButton = document.getElementById("newNote");
 const postSection = document.getElementById("post-section");
 
@@ -65,13 +37,11 @@ const saveBtn = document.getElementById("post-btn");
 const postInput = document.getElementById("post-input");
 const notesContainer = document.getElementById("notes-container")
 
-// Toggle post section visibility
 newNoteButton.addEventListener("click", () => {
     postSection.style.display = postSection.style.display === "none" ? "block" : "none";
 });
 
-// Track rendered posts to prevent duplication **CHANGE START**
-const renderedPosts = new Set(); // Keeps track of displayed posts
+const renderedPosts = new Set(); 
 // **CHANGE END**
 
 /* === Authentication === */
@@ -79,56 +49,45 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
         showLoggedInView();
         console.log(`User logged in: ${user.uid}`);
+        notesContainer.innerHTML = ""; 
+        renderedPosts.clear(); 
 
-        // Clear existing posts and reset tracking
-        notesContainer.innerHTML = ""; // Clear all posts from the UI
-        renderedPosts.clear(); // Reset the tracking Set
-
-        // Query to fetch posts for the logged-in user
         const postsRef = query(collection(db, "posts"), where("uid", "==", user.uid));
 
-        // Real-time listener for changes in Firestore
         onSnapshot(postsRef, (querySnapshot) => {
             const newPosts = [];
             querySnapshot.forEach((doc) => {
-                const postId = doc.id; // Unique ID for the post
+                const postId = doc.id; 
                 const postBody = doc.data().body;
 
-                // Add only new posts to the array
                 if (!renderedPosts.has(postId)) {
-                    renderedPosts.add(postId); // Mark post as rendered
-                    newPosts.push(postBody); // Add post to render queue
+                    renderedPosts.add(postId); 
+                    newPosts.push(postBody); 
                 }
             });
             let uniquePosts = [...new Set(newPosts)];
-            // Ensure posts are unique and render them
+
             console.log("New unique posts: ", uniquePosts);
 
-            // Render all new posts at once to minimize DOM updates
-            if (saveClicked % 2 === 0) {
-                console.log(uniquePosts)
-                createPostBoxes(uniquePosts[0]);
-                saveClicked += 1;
-            } else {
+            
                 uniquePosts.forEach((postBody) => {
                     createPostBoxes(postBody);
-                    console.log("created") // Render post on the page
+                    console.log("created") 
                 });
-            }
+            
             console.log("running")
         });
         
     } else {
         showLoggedOutView();
-        notesContainer.innerHTML = ""; // Clear posts on logout
-        renderedPosts.clear(); // Reset the tracking Set
+        notesContainer.innerHTML = ""; 
+        renderedPosts.clear(); 
     }
     
 });
 
 // Save Button Listener
 saveBtn.addEventListener("click", async () => {
-    saveClicked += 1;
     const user = auth.currentUser;
     const postBody = postInput.value.trim();
     
@@ -141,10 +100,6 @@ saveBtn.addEventListener("click", async () => {
                 createdAt: serverTimestamp()
             });
             console.log(`Post added with ID: ${docRef.id}`);
-
-            // Optionally, manually trigger the re-query of posts or force a UI refresh
-            // After adding the post, Firestore's real-time listener should automatically pick it up.
-            // You can reset the input and hide the post section after saving
             postInput.value = "";
             postSection.style.display = "none";
         } catch (error) {
@@ -155,68 +110,27 @@ saveBtn.addEventListener("click", async () => {
 });
 
 
-
-
-
-// Filter posts by UID
-// const querySnapshot = await getDocs(query(collection(db, "posts"), where("uid", "==", user.uid)));
-
-
-// querySnapshot.forEach((doc) => {
-// createPostBoxes(`${doc.data().body}`);
-// console.log(`${doc.data().uid}`);  // Optional for debugging
-// });
-
-
-
-
-
-
-
-
 function createPostBoxes(text) {
     let newDiv = document.createElement("div");
     let newP = document.createElement("p");
+    newP.innerHTML = text;
     newDiv.setAttribute("class", "post-box");
     newP.setAttribute("class", "post-text");
     newDiv.appendChild(newP);
     notesContainer.appendChild(newDiv);
-    newP.innerHTML = text;
 }
-
-
-/* === UI === */
-
-
 
 
 /* == UI - Elements == */
 const textareaEl = document.getElementById("post-input")
 
-
-const userGreetingEl = document.getElementById("user-greeting")
-
-
-
-
 const userProfilePictureEl = document.getElementById("user-profile-picture")
 const signOutButtonEl = document.getElementById("sign-out-btn")
-
-
-
-
-
 
 const viewLoggedOut = document.getElementById("logged-out-view")
 const viewLoggedIn = document.getElementById("logged-in-view")
 
-
-
-
 const signInWithGoogleButtonEl = document.getElementById("sign-in-with-google-btn")
-
-
-
 
 const emailInputEl = document.getElementById("email-input")
 const passwordInputEl = document.getElementById("password-input")
@@ -228,10 +142,10 @@ const signInButtonEl = document.getElementById("sign-in-btn")
 const createAccountButtonEl = document.getElementById("create-account-btn")
 
 
-const blueButton = document.getElementById("blueBtn"); ////////////
-const redButton = document.getElementById("redBtn"); ////////////
-const greenButton = document.getElementById("greenBtn"); ////////////
-const greyButton = document.getElementById("greyBtn"); ////////////
+const blueButton = document.getElementById("blueBtn");
+const redButton = document.getElementById("redBtn"); 
+const greenButton = document.getElementById("greenBtn"); 
+const greyButton = document.getElementById("greyBtn"); 
 
 
 
@@ -254,50 +168,15 @@ signInButtonEl.addEventListener("click", authSignInWithEmail)
 createAccountButtonEl.addEventListener("click", authCreateAccountWithEmail)
 
 
-blueButton.addEventListener("click", blueBtnFunc) ////////
-redButton.addEventListener("click", redBtnFunc) ////////
-greenButton.addEventListener("click", greenBtnFunc) ////////
-greyButton.addEventListener("click", greyBtnFunc) ////////
-
-
-/* === Main Code === */
-// showLoggedOutView()
-
-
-/*  Challenge:
-    Import the onAuthStateChanged function from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js"
-    Use the code from the documentation to make this work.
-    Use onAuthStateChanged to:
-    Show the logged in view when the user is logged in using showLoggedInView()
-    Show the logged out view when the user is logged out using showLoggedOutView()
-*/
-
-
-
-
-
-
-
-
-
-
-
-/* === Functions === */
-
+blueButton.addEventListener("click", blueBtnFunc) 
+redButton.addEventListener("click", redBtnFunc) 
+greenButton.addEventListener("click", greenBtnFunc) 
+greyButton.addEventListener("click", greyBtnFunc) 
 
 
 
 /* = Functions - Firebase - Authentication = */
 function authSignOut() {
-    /*  Challenge:
-         Import the signOut function from 'firebase/auth'
- 
- 
-        Use the code from the documentation to make this function work.
-   
-        If the log out is successful then you should show the logged out view using showLoggedOutView()
-        If something went wrong, then you should log the error message using console.error.
-    */
         const auth = getAuth();
         signOut(auth).then(() => {
           // Sign-out successful.
@@ -312,17 +191,8 @@ function authSignInWithGoogle() {
 
 
 
-
 function authSignInWithEmail() {
     console.log("Sign in with email and password")
-
-
-
-
-
-
-
-
     const email = emailInputEl.value
     const password = passwordInputEl.value
     signInWithEmailAndPassword(auth, email, password)
@@ -341,28 +211,9 @@ function authSignInWithEmail() {
 
 
 }
-///////////////////
+
 function authCreateAccountWithEmail() {
     console.log("Sign up with email and password")
-        /*  Challenge:
-    1 Import the createUserWithEmailAndPassword function from from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-
-
-
-
-
-
-
-
-       2 Use the code from the documentation to make this function work.
-       3 Make sure to first create two consts, 'email' and 'password', to fetch the values from the input fields emailInputEl and passwordInputEl.
-       4 If the creation of user is successful then you should show the logged in view using showLoggedInView()
-       5 If something went wrong, then you should log the error message using console.error.
-    */
-
-
-
-
        const email = emailInputEl.value
        const password= passwordInputEl.value
        createUserWithEmailAndPassword(auth, email, password)
@@ -383,11 +234,6 @@ function authCreateAccountWithEmail() {
 
 
 
-
-
-
-
-
 /* == Functions - UI Functions == */
 function showProfilePicture(imgElement, user) {
     if (imgElement) {
@@ -400,13 +246,6 @@ function showProfilePicture(imgElement, user) {
         console.error("Image element is not available.");
     }
 }
-
-
-
-
-
-
-
 
 
 function showLoggedOutView() {
@@ -440,14 +279,6 @@ function showLoggedOutView() {
  }
  
 
-
- function showUserGreeting(element, user) {
-    if (user.displayName) {
-        element.textContent = `Hi ${user.displayName}`;
-    } else {
-        element.textContent = "Hey friend, how are you?";
-    }
-}
 
 
 /* = Functions - Firebase - Cloud Firestore = */
@@ -496,16 +327,6 @@ document.body.style.backgroundImage = 'none';
 }
  
 
-
-function generateWord() { fetch('https://random-word-api.herokuapp.com/word')
-    .then(response => response.json())
-    .then(data => { document.getElementById("randomWord").innerText = data[0]; })
-     .catch(error => { console.error('Error fetching the word:', error); });
-}
-//credit: coursera
-//get userID of person logged in
-//check if every note
-//display flex; flex wrap
 
 
 

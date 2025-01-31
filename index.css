@@ -31,7 +31,7 @@ html, body {
 
 
 body {
-    background-image: url("https://cdn.hero.page/wallpapers/121fb583-c65c-4988-bd92-06e0e9b0ed2e-minimalist-mountain-peaks-wallpaper-wallpaper-1.png");
+    background-color: rgb(29, 29, 41);
     background-size: cover;          /* Ensures the background image covers the entire screen */
     background-position: center;     /* Ensures the image is centered in the viewport */
     background-repeat: no-repeat;    /* Prevents the image from repeating */
@@ -340,12 +340,12 @@ classes to make the sign out buttons work
 }
 
 .post-box {
-    height: 300px;
+    min-height: 300px;
     padding: 20px;
     width:200px;
     background-color: #fafafa;
     color:rgba(0, 0, 0, .25);
-    
+    word-wrap: break-word;
     flex-wrap: wrap;
     margin: 20px;
     border-radius: 20px 20px 20px 20px;
@@ -356,6 +356,7 @@ classes to make the sign out buttons work
 .post-text {
     font-size: 14px;
     color: black;
+    white-space: normal;
 }
 
 p{
